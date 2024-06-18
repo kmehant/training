@@ -205,7 +205,8 @@ def remove_pretrain_system_messages(example: dict):
 
 def main(args: DataProcessArgs):
     tokenizer = setup_tokenizer(args.model_path)
-
+    # save only the tokenizer to filesystem
+    tokenizer.save_pretrained(args.data_output_path)
     eos_tk = get_sp_token(tokenizer, SPECIAL_TOKENS.eos)
     pad_tk = get_sp_token(tokenizer, SPECIAL_TOKENS.pad)
     system_tk = get_sp_token(tokenizer, SPECIAL_TOKENS.system)

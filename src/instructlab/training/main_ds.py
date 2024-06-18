@@ -363,6 +363,12 @@ def train(args, model, tokenizer, train_loader, grad_accum):
                 for k in batch:
                     batch[k] = batch[k].to(local_rank)
 
+            sh = batch["input_ids"].shape
+            num_tokens = sh[0] * sh[1]
+
+            lformat = {"type": "token_count", "epoch": epoch, "step": global_step, "rank": torch.distributed.get_rank(), "num_tokens": num_tokens}
+            print(lformat)
+
             output = model(
                 **batch,
                 use_cache=False,
@@ -404,6 +410,7 @@ def train(args, model, tokenizer, train_loader, grad_accum):
                     f"num_loss_counted_tokens: {num_loss_counted_tokens} "
                     f"batch_size: {aggregated_values[1]} "
                     f"total loss: {aggregated_values[2]/num_loss_counted_tokens}"
+                    f", step_time: {elapsed_time}"
                 )
 
             if global_step * batch_size % args.save_samples == 0:
