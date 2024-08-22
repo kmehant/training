@@ -20,12 +20,6 @@ import time
 import warnings
 
 # Third Party
-# pylint: disable=no-name-in-module
-from instructlab.dolomite.hf_models import (
-    GPTDolomiteConfig,
-    export_to_huggingface,
-    import_from_huggingface,
-)
 from rich.logging import RichHandler
 from safetensors.torch import save_file
 from torch import distributed as dist
@@ -489,6 +483,10 @@ def ensure_loadable_granite_checkpoint(
     model_name_or_path: str,
     tmpdir: str,
 ):
+    from instructlab.dolomite.hf_models import (
+        GPTDolomiteConfig,
+        import_from_huggingface,
+    )
     local_rank = int(os.environ["LOCAL_RANK"])
     group_rank = int(os.environ["GROUP_RANK"])
 
@@ -632,6 +630,9 @@ def save_hf_format_ds(
     convert_granite=True,
     is_lora=False,
 ):
+    from instructlab.dolomite.hf_models import (
+        export_to_huggingface,
+    )
     model_to_save = model.module
     log_rank_0(
         f"\033[93mSaving model in huggingface format at samples_seen: {samples_seen}\033[0m",
