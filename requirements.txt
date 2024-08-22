@@ -1,11 +1,13 @@
+# fms-hf-tuning dependencies
+fms_hf_tuning @ git+https://github.com/foundation-model-stack/fms-hf-tuning.git@multi-pack#egg=fms_hf_tuning
 packaging>=20.9
 wheel>=0.43
 pyyaml
 py-cpuinfo
 # we set this to be above 0a0 so that it doesn't
 # replace custom pytorch images with the 2.3.0
-torch>=2.3.0a0
-transformers>=4.41.2
+# torch>=2.3.0a0
+# transformers>=4.41.2
 datasets>=2.15.0
 numba
 # Note: numpy ranges copied from instructlab/instructlab
@@ -16,11 +18,12 @@ numba
 numpy>=1.23.5,<2.0.0 ; python_version == '3.10'
 numpy>=1.26.4,<2.0.0 ; python_version != '3.10'
 rich
-instructlab-dolomite>=0.1.1
-trl>=0.9.4
+# trl>=0.9.4
 peft
 pydantic>=2.7.0
-
 # deepspeed needs to be at the bottom or it'll break during installation
 deepspeed>=0.14.3
 aiofiles>=23.2.1
+fms-acceleration @ git+https://github.com/foundation-model-stack/fms-acceleration.git@refactor/attention#subdirectory=plugins/framework
+fms-acceleration-attn @ git+https://github.com/foundation-model-stack/fms-acceleration.git@refactor/attention#subdirectory=plugins/accelerated-attn
+fms-acceleration-peft @ git+https://github.com/foundation-model-stack/fms-acceleration.git@refactor/attention#subdirectory=plugins/accelerated-peft
